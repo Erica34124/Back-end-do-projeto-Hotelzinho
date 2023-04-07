@@ -23,9 +23,9 @@ public class MatriculaController {
         return matriculaServices.matricularAluno(matricula);
     }
 
-    @DeleteMapping("/deletarMatricula/{id}")
-    public void deletar(@PathVariable(name = "id") String id) {
-        matriculaServices.deletarMatricula(id);
+    @DeleteMapping("/deletarMatricula/{ra}")
+    public void deletar(@PathVariable(name = "ra") String ra) {
+        matriculaServices.deletarMatricula(ra);
     }
     @PutMapping("/atualizarMatricula/{id}")
     public void atualizar(@PathVariable(name = "id") String id){

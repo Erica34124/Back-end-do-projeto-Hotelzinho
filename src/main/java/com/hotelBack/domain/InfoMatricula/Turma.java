@@ -5,7 +5,6 @@ import com.hotelBack.domain.InfoAluno.Aluno;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class Turma {
     private String id;
@@ -13,7 +12,7 @@ public class Turma {
     private Integer serie;
     private Integer quantidadeAlunos;
     private Integer quantidadeMaxima;
-    private List<Aluno> aluno = new ArrayList<Aluno>();
+    private List<Aluno> aluno = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -59,8 +58,8 @@ public class Turma {
         return aluno;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno.add(aluno);
+    public void setAluno(List<Aluno> aluno) {
+        this.aluno = aluno;
     }
 
     @Override

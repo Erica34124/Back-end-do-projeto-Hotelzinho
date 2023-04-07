@@ -1,6 +1,8 @@
 package com.hotelBack.domain.InfoMatricula;
 
+
 public class Matricula {
+    private String id;
     private String ra;
     private String idAluno;
     private Boolean matriculado;
@@ -9,6 +11,14 @@ public class Matricula {
 
     public String getRa() {
         return ra;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setRa(String ra) {
