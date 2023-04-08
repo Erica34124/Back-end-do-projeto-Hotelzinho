@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/matricula")
@@ -23,14 +25,12 @@ public class MatriculaController {
         return matriculaServices.matricularAluno(matricula);
     }
 
-    @DeleteMapping("/deletarMatricula/{ra}")
-    public void deletar(@PathVariable(name = "ra") String ra) {
-        matriculaServices.deletarMatricula(ra);
+    @DeleteMapping("/deletarMatricula/{id}")
+    public void deletar(@PathVariable(name = "id") String id) {
+        matriculaServices.deletarMatricula(id);
     }
     @PutMapping("/atualizarMatricula/{id}")
-    public void atualizar(@PathVariable(name = "id") String id){
-        matriculaServices.alterarMatriculaAluno(id);
+    public Optional<Matricula> atualizar(@PathVariable(name = "id") String id, @RequestBody  Matricula matricula){
+        return matriculaServices.alterarMatriculaAluno(id, matricula);
     }
-
-
-    }
+}

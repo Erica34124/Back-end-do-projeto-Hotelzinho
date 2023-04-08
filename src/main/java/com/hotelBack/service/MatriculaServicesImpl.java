@@ -44,42 +44,52 @@ public class MatriculaServicesImpl implements MatriculaService {
     }
 
     @Override
-    public void alterarMatriculaAluno(String id) {
+    public Optional<Matricula> alterarMatriculaAluno(String id, Matricula matricula) {
+        Optional<Matricula> matriculado = matriculaRepository.findById(id);
+        if (matriculado.isPresent()) {
+            Matricula mat = matriculado.get();
+            mat.setIdTurma(matricula.getIdTurma());
+            mat.setAno(matricula.getAno());
+            logger.info("Matricula atualizada com sucessso! ");
+            return Optional.of(matriculaRepository.save(mat));
+        }
+        throw new ResponseStatusException
+                (HttpStatus.NOT_FOUND, "Matricula não encontrada");
     }
 
     @Override
     public void deletarMatricula(String id) {
         Optional<Matricula> matricula = matriculaRepository.findById(id);
 
-        if (matricula.isPresent()){
+        if (matricula.isPresent()) {
             deletarAlunoNaTurma(matricula.get().getIdAluno(), matricula.get().getIdTurma());
             matriculaRepository.deleteById(id);
             logger.info("Matricula deletada com sucessso! ");
 
-        }else {
+        } else {
             throw new ResponseStatusException
                     (HttpStatus.NOT_FOUND, "Matricula não encontrado");
         }
 
     }
 
-    public void deletarAlunoNaTurma(String idAluno, String idTurma){
+    public void deletarAlunoNaTurma(String idAluno, String idTurma) {
         Optional<Turma> turma = turmaRepository.findById(idTurma);
         Optional<Aluno> aluno = alunoRepository.findById(idAluno);
 
-        AtomicReference<Integer> quantidade = new AtomicReference<>(turma.get().getQuantidadeAlunos());
+        if (turma.isPresent() && aluno.isPresent()) {
+            AtomicReference<Integer> quantidade = new AtomicReference<>(turma.get().getQuantidadeAlunos());
 
-        List<Aluno> alunos = turma.get().getAluno();
+            List<Aluno> alunos = turma.get().getAluno();
 
-        alunos.forEach(e ->{
-            if(e.getId().equals(idAluno)){
-                alunos.remove(e);
-                turma.get().setQuantidadeAlunos(quantidade.updateAndGet(v -> v - 1));
-                turmaRepository.save(turma.get());
-            }
-        });
-
-
+            alunos.forEach(e -> {
+                if (e.getId().equals(idAluno)) {
+                    alunos.remove(e);
+                    turma.get().setQuantidadeAlunos(quantidade.updateAndGet(v -> v - 1));
+                    turmaRepository.save(turma.get());
+                }
+            });
+        }
     }
 
     public void adicionarMatriculaNaTurma(Aluno aluno, String idTurma) {
