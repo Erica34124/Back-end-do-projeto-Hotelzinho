@@ -3,6 +3,7 @@ package com.hotelBack.controller;
 import com.hotelBack.domain.InfoAluno.Aluno;
 import com.hotelBack.service.AlunoServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +17,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/aluno")
 public class AlunoController {
     @Autowired
     AlunoServicesImpl alunoServices;
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/cadastrar")
     public Aluno cadastrar(@RequestBody Aluno aluno) {
         return alunoServices.cadastrarAluno(aluno);

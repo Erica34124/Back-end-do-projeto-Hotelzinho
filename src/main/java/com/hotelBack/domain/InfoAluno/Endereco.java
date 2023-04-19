@@ -1,16 +1,34 @@
 package com.hotelBack.domain.InfoAluno;
 
 public class Endereco {
-    private String rua;
+    private String cep;
+    private String logradouro;
+    private String bairro;
     private String cidade;
-    private String estado;
+    private String uf;
 
-    public String getRua() {
-        return rua;
+    public String getCep() {
+        return cep;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getCidade() {
@@ -21,11 +39,11 @@ public class Endereco {
         this.cidade = cidade;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getUf() {
+        return uf;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 }

@@ -10,7 +10,6 @@ public class Aluno {
     private String email;
     private String convenio;
 
-
     public String getId() {
         return id;
     }
@@ -74,5 +73,4 @@ public class Aluno {
     public void setConvenio(String convenio) {
         this.convenio = convenio;
     }
-
 }
