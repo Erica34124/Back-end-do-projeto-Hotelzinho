@@ -27,7 +27,7 @@ public class AlunoController {
     public Aluno cadastrar(@RequestBody Aluno aluno) {
         return alunoServices.cadastrarAluno(aluno);
     }
-
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/deletar/{id}")
     public void deletar(@PathVariable(name = "id") String id) {
         alunoServices.deletarAluno(id);
