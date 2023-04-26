@@ -40,5 +40,13 @@ public class AlunoController {
     public List<Aluno> buscarTodos(){
         return alunoServices.buscarTodosAlunos();
     }
+    
+    @CrossOrigin(origins = "*")
+    @GetMapping("/buscarAlunoPorId/{id}")
+    public Optional<Aluno> buscarAlunoPorId(@PathVariable(name= "id") String id){
+        return alunoServices.buscarAlunoPorId(id);
+    }
+
+
 
     }

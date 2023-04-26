@@ -3,6 +3,7 @@ package com.hotelBack.controller;
 import com.hotelBack.domain.InfoMatricula.Matricula;
 import com.hotelBack.service.MatriculaServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/matricula")
 public class MatriculaController {
     @Autowired

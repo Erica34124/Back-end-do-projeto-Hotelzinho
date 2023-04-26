@@ -10,5 +10,7 @@ public interface AlunoService {
     public Optional<Aluno> alterarCadastroAluno(String id, Aluno alunoRequest);
     public void deletarAluno(String id);
     public List<Aluno> buscarTodosAlunos();
+    public Optional<Aluno> buscarAlunoPorId(String id);
+
 
 }

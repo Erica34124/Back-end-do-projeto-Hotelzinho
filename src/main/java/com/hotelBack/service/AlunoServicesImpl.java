@@ -1,6 +1,7 @@
 package com.hotelBack.service;
 
 import com.hotelBack.domain.InfoAluno.Aluno;
+import com.hotelBack.domain.InfoAluno.Endereco;
 import com.hotelBack.repository.AlunoRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,9 +30,12 @@ public class AlunoServicesImpl implements AlunoService {
         Optional<Aluno> aluno = alunoRepository.findById(id);
         if (aluno.isPresent()){
             aluno.get().setNome(alunoRequest.getNome());
+            aluno.get().setNascimento(alunoRequest.getNascimento());
+            aluno.get().setEndereco(alunoRequest.getEndereco());
             aluno.get().setTelefone(alunoRequest.getTelefone());
-            aluno.get().setConvenio(alunoRequest.getConvenio());
+            aluno.get().setResponsavel(alunoRequest.getResponsavel());
             aluno.get().setEmail(alunoRequest.getEmail());
+            aluno.get().setConvenio(alunoRequest.getConvenio());
             logger.info("Aluno atualizado com sucessso! ");
             return Optional.of(alunoRepository.save(aluno.get()));
         }
@@ -57,5 +61,17 @@ public class AlunoServicesImpl implements AlunoService {
     public List<Aluno> buscarTodosAlunos() {
         List<Aluno> todosAlunos = alunoRepository.findAll();
         return todosAlunos;
+    }
+
+    @Override
+    public Optional<Aluno> buscarAlunoPorId(String id) {
+        Optional<Aluno> aluno = alunoRepository.findById(id);
+        if (aluno.isPresent()){
+            logger.info("Aluno Atualizado com sucessso! ");
+            return aluno;
+        } else {
+            throw new ResponseStatusException
+                    (HttpStatus.NOT_FOUND, "Aluno não encontrado");
+        }
     }
 }
