@@ -100,6 +100,7 @@ public class MatriculaServicesImpl implements MatriculaService {
             if (turma.get().getQuantidadeAlunos() < turma.get().getQuantidadeMaxima()) {
                 turma.get().setQuantidadeAlunos(quantidade += 1);
                 adicionarAlunoNaTurma(aluno.getId(), turma.get());
+                //implementar diretamente
                 turmaRepository.save(turma.get());
             } else {
                 throw new ResponseStatusException
