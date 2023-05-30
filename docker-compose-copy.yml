@@ -1,0 +1,45 @@
+version: '3'
+services:
+  mongodbHotelBack:
+    image: mongo:4.2.6
+    container_name: mongodbHotelBack
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - MONGO_DATA:/data/db
+    ports:
+      - 27017:27017
+    command: mongod
+    networks:
+      compose-bridge:
+        ipv4_address: 172.16.0.2
+  backend:
+    image: ericadeveloper/app-java:1.2
+    container_name: javaHotelBack
+    ports:
+      - 8010:8010
+    depends_on:
+      - mongodbHotelBack
+    networks:
+      compose-bridge:
+        ipv4_address: 172.16.0.1
+  frontend:
+    image: ericadeveloper/app-node:1.5
+    container_name: nodeHotelFront
+    ports:
+      - 8099:8099
+    depends_on:
+      - backend
+    networks:
+      compose-bridge:
+        ipv4_address: 172.16.0.3
+networks:
+  compose-bridge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24
+          gateway: 172.16.0.254
+volumes:
+  MONGO_DATA:

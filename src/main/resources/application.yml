@@ -1,0 +1,8 @@
+server:
+    port: ${PORT_APPLICATION:8010}
+
+spring:
+    data:
+        mongodb:
+                uri: ${MONGO_CONECTION_STRING:mongodb://localhost:27017}
+

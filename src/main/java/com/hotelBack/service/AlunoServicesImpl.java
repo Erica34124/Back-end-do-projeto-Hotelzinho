@@ -1,7 +1,6 @@
 package com.hotelBack.service;
 
 import com.hotelBack.domain.InfoAluno.Aluno;
-import com.hotelBack.domain.InfoAluno.Endereco;
 import com.hotelBack.repository.AlunoRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
