@@ -22,8 +22,9 @@ public class TurmaServiceImpl implements TurmaServices{
         Optional<Turma> turma = turmaRepository.findById(id);
         if (turma.isPresent()) {
             turmaRepository.deleteById(id);
+        } else {
+            throw new ResponseStatusException
+                    (HttpStatus.NOT_FOUND, "Turma não encontrada");
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Turma não encontrada");
     }
 }

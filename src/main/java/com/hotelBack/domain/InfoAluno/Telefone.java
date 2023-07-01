@@ -7,7 +7,6 @@ public class Telefone {
     public String getDdd() {
         return ddd;
     }
-
     public void setDdd(String ddd) {
         this.ddd = ddd;
     }

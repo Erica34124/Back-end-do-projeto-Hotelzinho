@@ -62,10 +62,9 @@ public class MatriculaServicesImpl implements MatriculaService {
         Optional<Matricula> matricula = matriculaRepository.findById(id);
 
         if (matricula.isPresent()) {
-            deletarAlunoNaTurma(matricula.get().getIdAluno(), matricula.get().getIdTurma());
             matriculaRepository.deleteById(id);
+            deletarAlunoNaTurma(matricula.get().getIdTurma(), matricula.get().getIdAluno());
             logger.info("Matricula deletada com sucessso! ");
-
         } else {
             throw new ResponseStatusException
                     (HttpStatus.NOT_FOUND, "Matricula não encontrado");
@@ -73,11 +72,11 @@ public class MatriculaServicesImpl implements MatriculaService {
 
     }
 
-    public void deletarAlunoNaTurma(String idAluno, String idTurma) {
+    @Override
+    public void deletarAlunoNaTurma(String idTurma, String idAluno) {
         Optional<Turma> turma = turmaRepository.findById(idTurma);
-        Optional<Aluno> aluno = alunoRepository.findById(idAluno);
 
-        if (turma.isPresent() && aluno.isPresent()) {
+        if (turma.isPresent()) {
             AtomicReference<Integer> quantidade = new AtomicReference<>(turma.get().getQuantidadeAlunos());
 
             List<Aluno> alunos = turma.get().getAluno();
@@ -92,15 +91,16 @@ public class MatriculaServicesImpl implements MatriculaService {
         }
     }
 
-    public void adicionarMatriculaNaTurma(Aluno aluno, String idTurma) {
+    @Override
+    public void adicionarMatriculaNaTurma(Aluno alunos, String idTurma) {
         Optional<Turma> turma = turmaRepository.findById(idTurma);
+        Optional<Aluno> aluno = alunoRepository.findById(alunos.getId());
         Integer quantidade = turma.get().getQuantidadeAlunos();
 
         if (turma.isPresent()) {
             if (turma.get().getQuantidadeAlunos() < turma.get().getQuantidadeMaxima()) {
                 turma.get().setQuantidadeAlunos(quantidade += 1);
-                adicionarAlunoNaTurma(aluno.getId(), turma.get());
-                //implementar diretamente
+                turma.get().getAluno().add(aluno.get());
                 turmaRepository.save(turma.get());
             } else {
                 throw new ResponseStatusException
@@ -108,12 +108,4 @@ public class MatriculaServicesImpl implements MatriculaService {
             }
         }
     }
-
-    public void adicionarAlunoNaTurma(String idAluno, Turma turma) {
-        Optional<Aluno> aluno = alunoRepository.findById(idAluno);
-
-        turma.getAluno().add(aluno.get());
-    }
-
-
 }

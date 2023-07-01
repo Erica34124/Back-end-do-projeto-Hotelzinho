@@ -22,31 +22,32 @@ import java.util.Optional;
 public class AlunoController {
     @Autowired
     AlunoServicesImpl alunoServices;
+
     @CrossOrigin(origins = "*")
     @PostMapping("/cadastrar")
     public Aluno cadastrar(@RequestBody Aluno aluno) {
         return alunoServices.cadastrarAluno(aluno);
     }
+
     @CrossOrigin(origins = "*")
     @DeleteMapping("/deletar/{id}")
     public void deletar(@PathVariable(name = "id") String id) {
         alunoServices.deletarAluno(id);
     }
+
     @PutMapping("/atualizar/{id}")
-    public Optional<Aluno> atualizar(@PathVariable(name = "id") String id, @RequestBody Aluno aluno){
+    public Optional<Aluno> atualizar(@PathVariable(name = "id") String id, @RequestBody Aluno aluno) {
         return alunoServices.alterarCadastroAluno(id, aluno);
     }
+
     @GetMapping("/buscarTodos")
-    public List<Aluno> buscarTodos(){
+    public List<Aluno> buscarTodos() {
         return alunoServices.buscarTodosAlunos();
     }
-    
+
     @CrossOrigin(origins = "*")
     @GetMapping("/buscarAlunoPorId/{id}")
-    public Optional<Aluno> buscarAlunoPorId(@PathVariable(name= "id") String id){
+    public Optional<Aluno> buscarAlunoPorId(@PathVariable(name = "id") String id) {
         return alunoServices.buscarAlunoPorId(id);
     }
-
-
-
-    }
+}
